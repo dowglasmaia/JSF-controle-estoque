@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="titulo"></ui:insert></title>
+</h:head>
+
+<h:body>
+	<b:container>
+		<h:form id="frmMenu">
+			<b:navBar brand="Estoque System" brandHref="#" fluid="true">
+				<b:navbarLinks>
+					<b:navLink value="Home" outcome="index" />
+					<b:dropMenu value="Cadastro">
+						<b:navLink value="Produtos" outcome="produtos" />
+						<b:navLink value="Usuario" href="#" />
+					</b:dropMenu>
+				</b:navbarLinks>
+
+				<b:navbarLinks pull="right" style-class="hidden-xs">
+					<b:navLink value="Sair" href="#" />
+				</b:navbarLinks>
+			</b:navBar>
+		</h:form>
+
+		<ui:insert name="conteudo">
+
+		</ui:insert>
+	</b:container>
+</h:body>
+</html>
