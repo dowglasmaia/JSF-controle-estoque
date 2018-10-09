@@ -12,6 +12,8 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<h:outputScript library="js" name="jquery.maskMoney.js" />
 
 
 	<title><ui:insert name="titulo"></ui:insert></title>
@@ -21,7 +23,7 @@
 	<b:container>
 		<h:form id="frmMenu">
 		
-			<b:navBar brand="Estoque System" brandHref="#" fluid="true">
+			<b:navBar brand="Sistema de Estoque" brandHref="#" fluid="true" >
 				<b:navbarLinks>
 					<b:navLink value="Home" outcome="index" />
 					<b:dropMenu value="Cadastro">
@@ -39,6 +41,21 @@
 		<ui:insert name="conteudo">
 
 		</ui:insert>
+		
+		<!--script para configura Capos de Moeda que usam a Class (moeda chamar no componete usando styleClass(moeda) -->
+	<script>
+		function configurarMoeda() {
+			$(".moeda").maskMoney({
+				decimal : ",",
+				thousands : ".",
+				allowZero : true
+			});
+		}
+
+		$(document).ready(function() {
+			configurarMoeda();
+		});
+	</script>
 	</b:container>
 </h:body>
 </html>

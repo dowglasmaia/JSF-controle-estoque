@@ -18,15 +18,46 @@
 				<div class="ui-fluid">
 					<p:messages autoUpdate="true" />
 
-					<p:panelGrid id="gridProdutos" columns="2"
-						columnClasses="ui-grid-col-2, ui-grid-col-13" layout="grid"
-						styleClass="ui-paneilgrid-blak">
+					<p:fieldset legend="Cadastro de Produtos">
+						<p:panelGrid id="gridProdutos" columns="2"
+							columnClasses="ui-grid-col-2, ui-grid-col-13" layout="grid"
+							styleClass="ui-paneilgrid-blak">
 
-						<p:outputLabel value="Nome" />
-						<p:inputText size="50" />
+							<p:outputLabel for="codigo" value="Código" />
+							<p:inputText id="codigo" size="10" readonly="true"
+								placeholder="Código" />
 
-					</p:panelGrid>
+							<p:outputLabel for="desc" value="Descrição" />
+							<p:inputText id="desc" size="50" placeholder="Descrição" />
 
+							<p:outputLabel for="marca" value="Marca" />
+							<p:inputText id="marca" size="50" placeholder="Marca" />
+
+							<p:outputLabel for="fornc" value="Fornecedor" />
+							<p:inputText id="fornc" size="50" placeholder="Fornecedor" />
+
+							<p:outputLabel for="qtda" value="Quantidade" />
+							<p:inputText id="qtda" size="10" placeholder="Quantidade" />
+
+							<p:outputLabel for="vlrCusto" value="Valor de Custo" />
+							<p:inputText id="vlrCusto" size="20" placeholder="0.00"
+								maxlength="20" styleClass="moeda">
+								<f:convertNumber maxFractionDigits="2" />
+							</p:inputText>
+
+							<p:outputLabel for="estoque" value="Estoque Atual" />
+							<p:inputText id="estoque" size="20" placeholder="Estoque Atual" />
+
+							<!-- Butões -->
+							<f:facet name="footer">
+								<div align="center">
+									<p:commandButton value="Salvar" icon="ui-icon-disk" />
+									<p:commandButton value="Cancelar" icon="ui-icon-trash" />
+								</div>
+							</f:facet>
+
+						</p:panelGrid>
+					</p:fieldset>
 				</div>
 			</h:panelGroup>
 
