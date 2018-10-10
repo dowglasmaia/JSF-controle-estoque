@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
 	template="/WEB-INF/template/template.xhtml">
 
-	<ui:define name="titulo">Cadastro de Produtos</ui:define>
+	<ui:define name="titulo">Entrada de Produtos</ui:define>
 
 	<ui:define name="conteudo">
 
@@ -16,48 +16,55 @@
 			<h:panelGroup>
 				<!-- Deixando o Formulario Responsivel -->
 				<div class="ui-fluid">
-					<p:messages autoUpdate="true" />
+					<p:growl id="msg"/>
 
-					<p:fieldset legend="Cadastro de Produtos">
+					<p:fieldset legend="Entrada de Produtos">
 						<p:panelGrid id="gridProdutos" columns="2"
 							columnClasses="ui-grid-col-2, ui-grid-col-13" layout="grid"
 							styleClass="ui-paneilgrid-blak">
 
 							<p:outputLabel for="codigo" value="Código" />
 							<p:inputText id="codigo" size="10" readonly="true"
-								placeholder="Código" />
+								placeholder="Código" value="#{produtoController.produto.id}" />
 
 							<p:outputLabel for="desc" value="Descrição" />
-							<p:inputText id="desc" size="50" placeholder="Descrição" />
+							<p:inputText id="desc" size="50" placeholder="Descrição"
+								value="#{produtoController.produto.descricao}" />
 
 							<p:outputLabel for="marca" value="Marca" />
-							<p:inputText id="marca" size="50" placeholder="Marca" />
+							<p:inputText id="marca" size="50" placeholder="Marca"
+								value="#{produtoController.produto.marca}" />
 
 							<p:outputLabel for="fornc" value="Fornecedor" />
-							<p:inputText id="fornc" size="50" placeholder="Fornecedor" />
+							<p:inputText id="fornc" size="50" placeholder="Fornecedor"
+								value="#{produtoController.produto.fornecedor}" />
 
 							<p:outputLabel for="qtda" value="Quantidade" />
-							<p:inputText id="qtda" size="10" placeholder="Quantidade" />
+							<p:inputText id="qtda" size="10" placeholder="Quantidade"
+								value="#{produtoController.produto.quantidade}" />
 
 							<p:outputLabel for="vlrCusto" value="Valor de Custo" />
 							<p:inputText id="vlrCusto" size="20" placeholder="0.00"
-								maxlength="20" styleClass="moeda">
+								maxlength="20" styleClass="moeda"
+								value="#{produtoController.produto.valorCusto}">
 								<f:convertNumber maxFractionDigits="2" />
 							</p:inputText>
 
 							<p:outputLabel for="estoque" value="Estoque Atual" />
-							<p:inputText id="estoque" size="20" placeholder="Estoque Atual" />
+							<p:inputText id="estoque" size="20" placeholder="Estoque Atual"
+								value="#{produtoController.produto.estoqueAtual}"
+								readonly="true" />
 
-							<!-- Butões -->
-							<f:facet name="footer">
-								<div align="center">
-									<p:commandButton value="Salvar" icon="ui-icon-disk" />
-									<p:commandButton value="Cancelar" icon="ui-icon-trash" />
-								</div>
-							</f:facet>
 
 						</p:panelGrid>
+
 					</p:fieldset>
+				</div>
+				<!-- Butões -->
+				<div align="right" style="margin-top: 5px">
+					<p:commandButton value="Novo" icon="ui-icon-plus" actionListener="#{produtoController.novo}" update="frmProdutos" />
+					<p:commandButton value="Salvar" icon="ui-icon-disk" actionListener="#{produtoController.saveOrUpdate}" update="@form msg" />
+					<p:commandButton value="Cancelar" icon="ui-icon-trash" />
 				</div>
 			</h:panelGroup>
 

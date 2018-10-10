@@ -12,7 +12,7 @@
 		<finalName>ControleDeEstoque</finalName>
 	</build>
 
-	<!-- JavaEE_8 <failOnMissingWebXml>false</failOnMissingWebXml>  -->
+	<!-- JavaEE_8 <failOnMissingWebXml>false</failOnMissingWebXml> -->
 	<properties>
 		<failOnMissingWebXml>true</failOnMissingWebXml>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -70,6 +70,7 @@
 			<version>1.14.1</version>
 		</dependency>
 
+		
 
 
 	</dependencies>

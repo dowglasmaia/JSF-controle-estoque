@@ -7,9 +7,11 @@
 		transaction-type="JTA">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-
+		
 		<!-- DataSource -->
 		<jta-data-source>java:jboss/datasources/estoqueDS</jta-data-source>
+		
+		<class>org.ControleDeEstoque.entidade.Produto</class>
 
 		<properties>
 			<!-- Configuracoes especificas do Hibernate -->

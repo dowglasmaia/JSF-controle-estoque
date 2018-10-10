@@ -26,14 +26,16 @@
 			<b:navBar brand="Sistema de Estoque" brandHref="#" fluid="true" >
 				<b:navbarLinks>
 					<b:navLink value="Home" outcome="index" />
-					<b:dropMenu value="Cadastro">
-						<b:navLink value="Produtos" outcome="produtos" />
-						<b:navLink value="Usuario" href="#" />
+					<b:dropMenu value="Produtos">
+						<b:navLink value="Entrada" outcome="produtos" />
+						<b:navLink value="Saída" outcome="listagem" />
 					</b:dropMenu>
+					
 				</b:navbarLinks>
 
 				<b:navbarLinks pull="right" style-class="hidden-xs">
-					<b:navLink value="Sair" href="#" />
+					<b:navLink value="Consultas" outcome="listagem"/>
+					<b:navLink value="Sair" outcome="index" />
 				</b:navbarLinks>
 			</b:navBar>
 		</h:form>

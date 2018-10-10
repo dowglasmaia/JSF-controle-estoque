@@ -26,15 +26,14 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>index.jsf</welcome-file>
 	</welcome-file-list>
 
 	<!-- Extensão da Pagina no Navegador -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.xhtml</url-pattern>
+		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 
 </web-app>
