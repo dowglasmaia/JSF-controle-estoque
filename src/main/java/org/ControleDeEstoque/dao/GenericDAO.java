@@ -1,6 +1,7 @@
 package org.ControleDeEstoque.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +23,6 @@ public class GenericDAO<E> implements Serializable {
 	// Captuando a Class de Instancia
 	protected Class classPersistente;
 
-	
 	public GenericDAO() {
 
 	}
@@ -33,10 +33,26 @@ public class GenericDAO<E> implements Serializable {
 		em.flush();
 	}
 
-	//Atualizar e Salvar os Dados
+	// Atualizar e Salvar os Dados
 	public void update(E obj) throws Exception {
 		em.merge(obj);
 		em.flush();
+	}
+
+	// Remove
+	public void remove(E obj) throws Exception {
+
+	}
+
+	// Buscar Todos
+	public List<E> findAll() {
+		String jpql = "from " + classPersistente.getSimpleName();
+		return em.createQuery(jpql).getResultList();
+	}
+
+	// Buscar por ID
+	public E findById(E id) {
+		return (E) em.find(classPersistente, id);
 	}
 
 }

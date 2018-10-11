@@ -25,6 +25,9 @@ public class ProdutoController implements Serializable {
 	public ProdutoController() {
 
 	}
+	
+	
+
 
 	// Novo
 	public void novo() {
@@ -36,19 +39,20 @@ public class ProdutoController implements Serializable {
 	public void saveOrUpdate() {
 		try {
 			if (produto.getId() == null) {
-				pDao.persiste(produto);
+				pDao.persiste(produto);				
+				produto.setEstoqueAtual(produto.getEstoqueAtual() + produto.getQuantidade()); // Atualiza o Estoque do Produto
+				
 				Messages.addGlobalInfo("Produto Salvo com Sucesso!");
 			} else {
 				pDao.update(produto);
+				produto.setEstoqueAtual(produto.getEstoqueAtual() + produto.getQuantidade()); // Atualiza o Estoque do Produto
 				Messages.addGlobalInfo("Produto Atualizado com Sucesso!");
 			}
 
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Tentar Salvar ou Atualizar o Produto!");
 			e.printStackTrace();
-
 		}
-
 	}
 
 	// ** Getters e Setters

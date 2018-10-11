@@ -38,7 +38,7 @@ public class Produto implements Serializable {
 	private Double valorCusto;
 
 	@Column(length = 20)
-	private Integer estoqueAtual;
+	private Integer estoqueAtual = 0;
 
 	public Produto() {
 
@@ -94,6 +94,7 @@ public class Produto implements Serializable {
 	}
 
 	public Integer getEstoqueAtual() {
+		
 		return estoqueAtual;
 	}
 
