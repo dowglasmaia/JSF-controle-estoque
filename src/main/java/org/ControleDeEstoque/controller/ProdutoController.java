@@ -1,6 +1,8 @@
 package org.ControleDeEstoque.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -22,12 +24,11 @@ public class ProdutoController implements Serializable {
 	@Inject
 	private Produto produto;
 
+	private List<Produto> produtos = new ArrayList<>();
+
 	public ProdutoController() {
 
 	}
-	
-	
-
 
 	// Novo
 	public void novo() {
@@ -39,30 +40,48 @@ public class ProdutoController implements Serializable {
 	public void saveOrUpdate() {
 		try {
 			if (produto.getId() == null) {
-				pDao.persiste(produto);				
-				produto.setEstoqueAtual(produto.getEstoqueAtual() + produto.getQuantidade()); // Atualiza o Estoque do Produto
-				
+				pDao.persiste(produto);
+				produto.setEstoqueAtual(produto.getEstoqueAtual() + produto.getQuantidade()); // Atualiza o Estoque do
+																								// Produto
 				Messages.addGlobalInfo("Produto Salvo com Sucesso!");
 			} else {
 				pDao.update(produto);
-				produto.setEstoqueAtual(produto.getEstoqueAtual() + produto.getQuantidade()); // Atualiza o Estoque do Produto
+				produto.setEstoqueAtual(produto.getEstoqueAtual() + produto.getQuantidade()); // Atualiza o Estoque do
+																								// Produto
 				Messages.addGlobalInfo("Produto Atualizado com Sucesso!");
 			}
-
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Tentar Salvar ou Atualizar o Produto!");
 			e.printStackTrace();
 		}
 	}
 
-	// ** Getters e Setters
+	// Listar Todos
+	
+	public void ListarTodos() {
+		try {
+			produtos = pDao.findAll();
+		} catch (Exception e) {
+			Messages.addGlobalError("Erro ao Realizar Consulta de Produtos!");
+			e.printStackTrace();
+		}
+	}
 
+	// ** Getters e Setters
 	public Produto getProduto() {
 		return produto;
 	}
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 }

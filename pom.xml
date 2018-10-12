@@ -12,9 +12,8 @@
 		<finalName>ControleDeEstoque</finalName>
 	</build>
 
-	<!-- JavaEE_8 <failOnMissingWebXml>false</failOnMissingWebXml> -->
+	<!-- JavaEE_8  - <failOnMissingWebXml>false</failOnMissingWebXml> -->
 	<properties>
-		<failOnMissingWebXml>true</failOnMissingWebXml>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,7 +51,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>6.1</version>
+			<version>6.2</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -70,7 +69,7 @@
 			<version>1.14.1</version>
 		</dependency>
 
-		
+
 
 
 	</dependencies>

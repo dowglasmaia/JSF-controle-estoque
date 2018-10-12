@@ -9,70 +9,82 @@
 	template="/WEB-INF/template/template.xhtml">
 
 	<ui:define name="titulo">Saída de Produtos</ui:define>
+	
+	<!-- Chamando o Metodo Inicializar, Antes da Pagina ser carregada  -->
+	<f:metadata>
+		<f:viewParam
+			name="Linha Apenas para resolvendo o excesso de inicializção, porque Não sei explicar rsrs"></f:viewParam>
+		<f:event listener="#{produtoController.ListarTodos}"
+			type="preRenderView"></f:event>
+	</f:metadata>
 
+	<!-- Inicio do Conteudo -->
 	<ui:define name="conteudo">
+
 
 		<h:form id="frmSd_Produtos">
 			<h:panelGroup>
-
 				<!-- Deixando o Formulario Responsivel -->
 				<div class="ui-fluid">
-					<p:messages autoUpdate="true" />
-
+					<p:messages />
 
 					<p:fieldset legend="Produtos">
-						<p:dataTable id="tblProdutos" var="produto"
-							emptyMessage="Nenhum Registro Encontrado" multiViewState="true"
-							rows="10" lazy="true" paginator="true" paginatorPosition="top">
-							
-							<div align="right">
-								<f:facet name="header">
-									<p:outputPanel>
-										<p:outputLabel value="Localizar Por Código" />
-										<p:inputText id="localizar" />
-									</p:outputPanel>
-								</f:facet>
-							</div>
+						<p:dataTable value="#{produtoController.produtos}" var="p"
+							lazy="true" paginatorPosition="top" paginator="true" rows="10"
+							emptyMessage="Nenhum Registro Encontrado!">
 
-
-							<p:ajax event="rowSelect" />
-
-							<p:column headerText="Código">
-								<h:outputText />
+							<p:column headerText="Código" sortBy="#{p.id}"
+								style="width: 80px">
+								<h:outputText value="#{p.id}" />
 							</p:column>
 
-							<p:column headerText="Descrição" filterBy="true">
-								<h:outputText />
+							<p:column headerText="Descrição" style="width: 150px"
+								filterBy="#{p.descricao}">
+								<h:outputText value="#{p.descricao}" />
 							</p:column>
 
-							<p:column headerText="Marca">
-								<h:outputText />
+							<p:column headerText="Marca" style="width: 100px">
+								<h:outputText value="#{p.marca}" />
 							</p:column>
 
-							<p:column headerText="Fornecedor">
-								<h:outputText />
+							<p:column headerText="Fornecedor" style="width: 100px">
+								<h:outputText value="#{p.fornecedor}" />
 							</p:column>
 
-							<p:column headerText="Estoque Atual">
-								<h:outputText />
-							</p:column>
-							
-							<p:column headerText="Ações">
-								<p:commandButton value="Novo" icon="ui-icon-pencil" />
-								
+							<p:column headerText="Valor de Custo" style="width: 80px">
+								<h:outputText value="#{p.valorCusto}" />
 							</p:column>
 
+							<p:column headerText="Estoque Atual" style="width: 80px">
+								<h:outputText value="#{p.estoqueAtual}" />
+							</p:column>
 
+							<p:column headerText="Ações" style="width: 80px">
+								<p:commandButton icon="ui-icon-refresh"
+									oncomplete="PF('proDialog').show()" />
+							</p:column>
 
 						</p:dataTable>
-
 					</p:fieldset>
-
 				</div>
-				
 			</h:panelGroup>
+		</h:form>
+
+		<!-- Dialog de Atualização dos Dados -->
+		<h:form id="frmDialog">
+			<div class="ui-fluid">
+				<p:dialog header="Saída de Produtos" widgetVar="proDialog" modal="true" closable="false" resizable="false" responsive="true" >
+				
+				<f:facet name="footer">
+					<p:commandButton value="Cancelar" oncomplete="PF('proDialog').hide()" />
+				</f:facet>
+
+				</p:dialog>
+
+			</div>
 
 		</h:form>
+
 	</ui:define>
 
 </ui:composition>

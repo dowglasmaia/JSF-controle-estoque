@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 public class GenericDAO<E> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@PersistenceContext
+	@PersistenceContext  //Injeta uma Instancia do EntityManager
 	protected EntityManager em;
 
 	// Captuando a Class de Instancia
@@ -45,7 +45,7 @@ public class GenericDAO<E> implements Serializable {
 	}
 
 	// Buscar Todos
-	public List<E> findAll() {
+	public List<E> findAll() throws Exception {
 		String jpql = "from " + classPersistente.getSimpleName();
 		return em.createQuery(jpql).getResultList();
 	}

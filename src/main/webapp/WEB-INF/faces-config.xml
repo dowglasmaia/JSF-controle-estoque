@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_2.xsd">
 	<application>
+	
 		<navigation-rule>
 			<from-view-id>/*</from-view-id>
 			<navigation-case>
@@ -10,5 +11,6 @@
 				<to-view-id>/index.jsf</to-view-id>
 			</navigation-case>
 		</navigation-rule>
+		
 	</application>
 </faces-config>
