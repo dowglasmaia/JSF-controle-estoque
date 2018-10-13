@@ -9,7 +9,7 @@
 	template="/WEB-INF/template/template.xhtml">
 
 	<ui:define name="titulo">Saída de Produtos</ui:define>
-	
+
 	<!-- Chamando o Metodo Inicializar, Antes da Pagina ser carregada  -->
 	<f:metadata>
 		<f:viewParam
@@ -26,10 +26,13 @@
 			<h:panelGroup>
 				<!-- Deixando o Formulario Responsivel -->
 				<div class="ui-fluid">
-					<p:messages />
+					<b:messages id="msg" />
 
 					<p:fieldset legend="Produtos">
 						<p:dataTable value="#{produtoController.produtos}" var="p"
+							filteredValue="#{produtoController.produtos}"
+							rowsPerPageTemplate="5,10,15"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							lazy="true" paginatorPosition="top" paginator="true" rows="10"
 							emptyMessage="Nenhum Registro Encontrado!">
 
@@ -38,8 +41,7 @@
 								<h:outputText value="#{p.id}" />
 							</p:column>
 
-							<p:column headerText="Descrição" style="width: 150px"
-								filterBy="#{p.descricao}">
+							<p:column headerText="Descrição" style="width: 150px">
 								<h:outputText value="#{p.descricao}" />
 							</p:column>
 
@@ -61,29 +63,63 @@
 
 							<p:column headerText="Ações" style="width: 80px">
 								<p:commandButton icon="ui-icon-refresh"
-									oncomplete="PF('proDialog').show()" />
+									update=":frmSd_Produtos:pnlProduto :frmSd_Produtos:msg"
+									oncomplete="PF('proDialog').show()" title="Atualizar">
+									<f:setPropertyActionListener value="#{p}"
+										target="#{produtoController.produto}"></f:setPropertyActionListener>
+									<!-- <f:attribute name="objSelecionado" value="#{p}"></f:attribute> -->
+								</p:commandButton>
 							</p:column>
 
 						</p:dataTable>
 					</p:fieldset>
+
+					<!-- Dialog de Atualização dos Dados -->
+					<p:dialog header="Saída de Produtos" widgetVar="proDialog"
+						modal="true" closable="false" resizable="false">
+
+						<p:outputPanel id="pnlProduto" style=" width:400px">
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-3, ui-grid-col-13" layout="grid"
+								styleClass="ui-paneilgrid-blak">
+
+								<p:outputLabel value="Código:" />
+								<h:outputText value="#{produtoController.produto.id}" />
+
+								<p:outputLabel value="Descrição:" />
+								<h:outputText value="#{produtoController.produto.descricao}"
+									style="width: 70px" />
+
+								<p:outputLabel value="Estoque Atual: " />
+								<h:outputText value="#{produtoController.produto.estoqueAtual}" />
+
+
+								<p:outputLabel for="saida" value="Qtda Saída: " />
+								<p:inputText id="saida" value="#{produtoController.qtdaSaida}"
+									placeholder="Saída" size="10">
+									<f:convertNumber minIntegerDigits="1" type="number" />
+								</p:inputText>
+
+								<f:facet name="footer">
+									<p:commandButton value="Finalizar Saída"
+										actionListener="#{produtoController.baixarEstoque()}"
+										oncomplete="PF('proDialog').hide()" update="@form" />
+
+									<p:commandButton value="Cancelar"
+										oncomplete="PF('proDialog').hide()" />
+
+								</f:facet>
+							</p:panelGrid>
+						</p:outputPanel>
+
+					</p:dialog>
+
 				</div>
 			</h:panelGroup>
 		</h:form>
 
-		<!-- Dialog de Atualização dos Dados -->
-		<h:form id="frmDialog">
-			<div class="ui-fluid">
-				<p:dialog header="Saída de Produtos" widgetVar="proDialog" modal="true" closable="false" resizable="false" responsive="true" >
-				
-				<f:facet name="footer">
-					<p:commandButton value="Cancelar" oncomplete="PF('proDialog').hide()" />
-				</f:facet>
 
-				</p:dialog>
 
-			</div>
-
-		</h:form>
 
 	</ui:define>
 

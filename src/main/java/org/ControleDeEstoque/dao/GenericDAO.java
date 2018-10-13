@@ -51,7 +51,7 @@ public class GenericDAO<E> implements Serializable {
 	}
 
 	// Buscar por ID
-	public E findById(E id) {
+	public E findById(Integer id) {
 		return (E) em.find(classPersistente, id);
 	}
 

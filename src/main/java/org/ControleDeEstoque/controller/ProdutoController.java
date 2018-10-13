@@ -26,6 +26,8 @@ public class ProdutoController implements Serializable {
 
 	private List<Produto> produtos = new ArrayList<>();
 
+	private Integer qtdaSaida;
+
 	public ProdutoController() {
 
 	}
@@ -57,13 +59,35 @@ public class ProdutoController implements Serializable {
 	}
 
 	// Listar Todos
-	
+
 	public void ListarTodos() {
 		try {
 			produtos = pDao.findAll();
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Realizar Consulta de Produtos!");
 			e.printStackTrace();
+		}
+	}
+
+	// Remove
+	public void remove(Integer id) {
+		try {
+			produto = pDao.findById(id);
+			pDao.remove(produto);
+			Messages.addGlobalInfo("Produto Removido com Sucesso!");
+		} catch (Exception e) {
+			Messages.addGlobalError("Erro ao Tentar Remover Produto!");
+			e.printStackTrace();
+		}
+	}
+
+	// Atualiza Estoque
+	public void baixarEstoque() {
+		if (produto.getEstoqueAtual() != 0 && qtdaSaida <= produto.getEstoqueAtual()) {
+			produto.setEstoqueAtual(produto.getEstoqueAtual() - qtdaSaida);
+			saveOrUpdate();
+		} else {
+			Messages.addGlobalWarn("Erro ao TentarAtualizar Estoque!");
 		}
 	}
 
@@ -82,6 +106,14 @@ public class ProdutoController implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public Integer getQtdaSaida() {
+		return qtdaSaida;
+	}
+
+	public void setQtdaSaida(Integer qtdaSaida) {
+		this.qtdaSaida = qtdaSaida;
 	}
 
 }
