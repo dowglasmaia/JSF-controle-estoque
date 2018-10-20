@@ -1,4 +1,4 @@
-package org.ControleDeEstoque.entidade;
+package com.maia.ce.entity;
 
 import java.io.Serializable;
 

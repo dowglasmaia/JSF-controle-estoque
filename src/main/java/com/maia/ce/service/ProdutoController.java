@@ -1,4 +1,4 @@
-package org.ControleDeEstoque.controller;
+package com.maia.ce.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,9 +9,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.ControleDeEstoque.dao.ProdutoDAO;
-import org.ControleDeEstoque.entidade.Produto;
 import org.omnifaces.util.Messages;
+
+import com.maia.ce.entity.Produto;
+import com.maia.ce.repository.ProdutoDAO;
 
 @Named
 @SessionScoped

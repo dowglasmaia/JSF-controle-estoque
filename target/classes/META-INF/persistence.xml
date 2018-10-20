@@ -11,7 +11,7 @@
 		<!-- DataSource -->
 		<jta-data-source>java:jboss/datasources/estoqueDS</jta-data-source>
 		
-		<class>org.ControleDeEstoque.entidade.Produto</class>
+		<class>com.maia.ce.entity.Produto</class>
 
 		<properties>
 			<!-- Configuracoes especificas do Hibernate -->

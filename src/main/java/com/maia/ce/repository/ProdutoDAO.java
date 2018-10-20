@@ -1,8 +1,8 @@
-package org.ControleDeEstoque.dao;
+package com.maia.ce.repository;
 
 import javax.ejb.Stateless;
 
-import org.ControleDeEstoque.entidade.Produto;
+import com.maia.ce.entity.Produto;
 
 /*
  * Autor: Dowglas Maia

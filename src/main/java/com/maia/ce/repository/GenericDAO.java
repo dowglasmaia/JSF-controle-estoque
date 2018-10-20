@@ -1,4 +1,4 @@
-package org.ControleDeEstoque.dao;
+package com.maia.ce.repository;
 
 import java.io.Serializable;
 import java.util.List;
