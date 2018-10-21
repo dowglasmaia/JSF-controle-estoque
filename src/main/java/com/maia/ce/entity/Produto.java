@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 /*
  * Autor: Dowglas Maia
@@ -28,8 +32,8 @@ public class Produto implements Serializable {
 	@Column(length = 50)
 	private String marca;
 
-	@Column(length = 50)
-	private String fornecedor;
+	@ManyToOne
+	private Fornecedor fornecedor;
 
 	@Column(length = 20, nullable = false)
 	private Integer quantidade;
@@ -69,11 +73,11 @@ public class Produto implements Serializable {
 		this.marca = marca;
 	}
 
-	public String getFornecedor() {
+	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(String fornecedor) {
+	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
@@ -94,7 +98,7 @@ public class Produto implements Serializable {
 	}
 
 	public Integer getEstoqueAtual() {
-		
+
 		return estoqueAtual;
 	}
 
@@ -125,6 +129,11 @@ public class Produto implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
 
 }

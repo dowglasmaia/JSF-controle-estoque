@@ -12,6 +12,7 @@
 		<jta-data-source>java:jboss/datasources/estoqueDS</jta-data-source>
 		
 		<class>com.maia.ce.entity.Produto</class>
+		<class>com.maia.ce.entity.Fornecedor</class>
 
 		<properties>
 			<!-- Configuracoes especificas do Hibernate -->

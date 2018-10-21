@@ -9,6 +9,16 @@
 	template="/WEB-INF/template/template.xhtml">
 
 	<ui:define name="titulo">Entrada de Produtos</ui:define>
+	<!-- Chamando o Metodo Inicializar, Antes da Pagina ser carregada  -->
+	<f:metadata>
+		<f:viewParam name="Linha Apenas para resolvendo o excesso de inicializção, porque Não sei explicar rsrs"/>
+	
+		<f:event listener="#{produtoView.listarFornecedores()}"
+			type="preRenderView">
+			
+			</f:event>
+	</f:metadata>
+
 
 	<ui:define name="conteudo">
 
@@ -16,7 +26,7 @@
 			<h:panelGroup>
 				<!-- Deixando o Formulario Responsivel -->
 				<div class="ui-fluid">
-					<p:growl id="msg"/>
+					<p:growl id="msg" />
 
 					<p:fieldset legend="Entrada de Produtos">
 						<p:panelGrid id="gridProdutos" columns="2"
@@ -25,33 +35,45 @@
 
 							<p:outputLabel for="codigo" value="Código" />
 							<p:inputText id="codigo" size="10" readonly="true"
-								placeholder="Código" value="#{produtoController.produto.id}" />
+								placeholder="Código" value="#{produtoView.produto.id}" />
 
 							<p:outputLabel for="desc" value="Descrição" />
 							<p:inputText id="desc" size="50" placeholder="Descrição"
-								value="#{produtoController.produto.descricao}" />
+								value="#{produtoView.produto.descricao}" />
 
 							<p:outputLabel for="marca" value="Marca" />
 							<p:inputText id="marca" size="50" placeholder="Marca"
-								value="#{produtoController.produto.marca}" />
+								value="#{produtoView.produto.marca}" />
 
 							<p:outputLabel for="fornc" value="Fornecedor" />
-							<p:inputText id="fornc" size="50" placeholder="Fornecedor"
-								value="#{produtoController.produto.fornecedor}" />
+							<p:selectOneMenu id="fornc" filter="true"
+								value="#{produtoView.produto.fornecedor}"
+								converter="omnifaces.SelectItemsConverter">
+
+								<f:selectItem itemLabel="Selecione um Fornecedor"
+									noSelectionOption="true" />
+
+								<f:selectItems id="itForn" value="#{produtoView.fornecedores}" var="forn"
+									itemLabel="#{forn.nome}" itemValue="#{forn}" />
+
+
+
+							</p:selectOneMenu>
 
 							<p:outputLabel for="qtda" value="Quantidade" />
 							<p:inputText id="qtda" size="10" placeholder="Quantidade"
-								value="#{produtoController.produto.quantidade}" />
+								value="#{produtoView.produto.quantidade}" />
 
 							<p:outputLabel for="vlrCusto" value="Valor de Custo" />
 							<p:inputText id="vlrCusto" size="20" placeholder="0.00"
 								maxlength="20" styleClass="moeda"
-								value="#{produtoController.produto.valorCusto}">
+								value="#{produtoView.produto.valorCusto}">
 								<f:convertNumber maxFractionDigits="2" />
 							</p:inputText>
 
 							<p:outputLabel for="estoque" value="Estoque Atual" />
-							<h:outputText  id="estoque" value="#{produtoController.produto.estoqueAtual}" />
+							<h:outputText id="estoque"
+								value="#{produtoView.produto.estoqueAtual}" />
 
 
 						</p:panelGrid>
@@ -60,9 +82,13 @@
 				</div>
 				<!-- Butões -->
 				<div align="right" style="margin-top: 5px">
-					<p:commandButton value="Novo" icon="ui-icon-plus" actionListener="#{produtoController.novo}" update="frmProdutos" />
-					<p:commandButton value="Salvar" icon="ui-icon-disk" actionListener="#{produtoController.saveOrUpdate}" update="@form msg"  />
-					<p:commandButton value="Cancelar" icon="ui-icon-trash" />
+					<p:commandButton value="Novo" icon="ui-icon-plus"
+						actionListener="#{produtoView.novo}" update="frmProdutos:gridProdutos" />
+
+					<p:commandButton value="Salvar" icon="ui-icon-disk"
+						actionListener="#{produtoView.save}" update="@form msg" />
+
+					<p:commandButton value="Cancelar" icon="ui-icon-trash" update="frmProdutos:gridProdutos"/>
 				</div>
 			</h:panelGroup>
 

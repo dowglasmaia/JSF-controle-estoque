@@ -14,7 +14,7 @@
 	<f:metadata>
 		<f:viewParam
 			name="Linha Apenas para resolvendo o excesso de inicializção, porque Não sei explicar rsrs"></f:viewParam>
-		<f:event listener="#{produtoController.ListarTodos}"
+		<f:event listener="#{produtoView.listarTodos()}"
 			type="preRenderView"></f:event>
 	</f:metadata>
 
@@ -29,9 +29,8 @@
 					<b:messages id="msg" />
 
 					<p:fieldset legend="Produtos">
-						<p:dataTable value="#{produtoController.produtos}" var="p"
-							filteredValue="#{produtoController.produtos}"
-							rowsPerPageTemplate="5,10,15"
+						<p:dataTable value="#{produtoView.produtos}" var="p"
+							filteredValue="#{produtoView.produtos}"
 							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							lazy="true" paginatorPosition="top" paginator="true" rows="10"
 							emptyMessage="Nenhum Registro Encontrado!">
@@ -66,7 +65,7 @@
 									update=":frmSd_Produtos:pnlProduto :frmSd_Produtos:msg"
 									oncomplete="PF('proDialog').show()" title="Atualizar">
 									<f:setPropertyActionListener value="#{p}"
-										target="#{produtoController.produto}"></f:setPropertyActionListener>
+										target="#{produtoView.produto}"></f:setPropertyActionListener>
 									<!-- <f:attribute name="objSelecionado" value="#{p}"></f:attribute> -->
 								</p:commandButton>
 							</p:column>
@@ -84,25 +83,25 @@
 								styleClass="ui-paneilgrid-blak">
 
 								<p:outputLabel value="Código:" />
-								<h:outputText value="#{produtoController.produto.id}" />
+								<h:outputText value="#{produtoView.produto.id}" />
 
 								<p:outputLabel value="Descrição:" />
-								<h:outputText value="#{produtoController.produto.descricao}"
+								<h:outputText value="#{produtoView.produto.descricao}"
 									style="width: 70px" />
 
 								<p:outputLabel value="Estoque Atual: " />
-								<h:outputText value="#{produtoController.produto.estoqueAtual}" />
+								<h:outputText value="#{produtoView.produto.estoqueAtual}" />
 
 
 								<p:outputLabel for="saida" value="Qtda Saída: " />
-								<p:inputText id="saida" value="#{produtoController.qtdaSaida}"
+								<p:inputText id="saida" value="#{produtoView.qtdaSaida}"
 									placeholder="Saída" size="10">
 									<f:convertNumber minIntegerDigits="1" type="number" />
 								</p:inputText>
 
 								<f:facet name="footer">
 									<p:commandButton value="Finalizar Saída"
-										actionListener="#{produtoController.baixarEstoque()}"
+										actionListener="#{produtoView.baixarEstoque}"
 										oncomplete="PF('proDialog').hide()" update="@form" />
 
 									<p:commandButton value="Cancelar"

@@ -1,4 +1,4 @@
-package com.maia.ce.repository;
+package com.maia.ce.repositorydao;
 
 import javax.ejb.Stateless;
 

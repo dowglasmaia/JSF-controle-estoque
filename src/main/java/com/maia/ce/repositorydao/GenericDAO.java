@@ -1,57 +1,63 @@
-package com.maia.ce.repository;
+package com.maia.ce.repositorydao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import com.maia.ce.interfaces.GenericRepositoryDAO;
+
 /*
  * Autor: Dowglas Maia
  * Skype: live:dowglasmaia
  * E-mail:dowglasmaia@live.com
+ * 
  * */
 
 @Transactional(rollbackOn = { Exception.class })
-public class GenericDAO<E> implements Serializable {
+public class GenericDAO<E> implements GenericRepositoryDAO<E> {
 	private static final long serialVersionUID = 1L;
 
-	@PersistenceContext  //Injeta uma Instancia do EntityManager
+	@PersistenceContext // Injeta uma Instancia do EntityManager
 	protected EntityManager em;
 
 	// Captuando a Class de Instancia
 	protected Class classPersistente;
 
 	public GenericDAO() {
-
+		// TODO Auto-generated constructor stub
 	}
 
-	// Salvar
-	public void persiste(E obj) throws Exception {
-		em.persist(obj);
+	@Override
+	public void save(E entidade) throws Exception {
+		em.persist(entidade);
 		em.flush();
 	}
 
-	// Atualizar e Salvar os Dados
-	public void update(E obj) throws Exception {
-		em.merge(obj);
+	@Override
+	public void update(E entidade) throws Exception {
+		em.merge(entidade);
+		em.flush();
+
+	}
+
+	@Override
+	public void remove(E entidade) throws Exception {
+		entidade = em.merge(entidade);
+		em.remove(entidade);
 		em.flush();
 	}
 
-	// Remove
-	public void remove(E obj) throws Exception {
-
-	}
-
-	// Buscar Todos
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<E> findAll() throws Exception {
 		String jpql = "from " + classPersistente.getSimpleName();
 		return em.createQuery(jpql).getResultList();
 	}
 
-	// Buscar por ID
-	public E findById(Integer id) {
+	@Override
+	public E findById(Integer id) throws Exception {
 		return (E) em.find(classPersistente, id);
 	}
 
