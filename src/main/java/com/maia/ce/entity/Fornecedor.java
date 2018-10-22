@@ -32,6 +32,15 @@ public class Fornecedor implements Serializable {
 	@Column(length = 50)
 	private String nome;
 
+	@Column(length = 50)
+	private String email;
+
+	@Column(length = 20)
+	private String tefelefone;
+
+	@Column(length = 50)
+	private String representatne;
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "fornecedor")
 	private List<Produto> produtos = new ArrayList<>();
@@ -58,6 +67,30 @@ public class Fornecedor implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTefelefone() {
+		return tefelefone;
+	}
+
+	public void setTefelefone(String tefelefone) {
+		this.tefelefone = tefelefone;
+	}
+
+	public String getRepresentatne() {
+		return representatne;
+	}
+
+	public void setRepresentatne(String representatne) {
+		this.representatne = representatne;
 	}
 
 	@Override
@@ -87,7 +120,7 @@ public class Fornecedor implements Serializable {
 
 	@Override
 	public String toString() {
-	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
-	
+
 }

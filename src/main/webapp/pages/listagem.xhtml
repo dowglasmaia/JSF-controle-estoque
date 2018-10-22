@@ -94,14 +94,14 @@
 
 
 								<p:outputLabel for="saida" value="Qtda Saída: " />
-								<p:inputText id="saida" value="#{produtoView.qtdaSaida}"
+								<p:inputText id="saida" value="#{produtoView.qtda}"
 									placeholder="Saída" size="10">
 									<f:convertNumber minIntegerDigits="1" type="number" />
 								</p:inputText>
 
 								<f:facet name="footer">
 									<p:commandButton value="Finalizar Saída"
-										actionListener="#{produtoView.baixarEstoque}"
+										actionListener="#{produtoView.saida}"
 										oncomplete="PF('proDialog').hide()" update="@form" />
 
 									<p:commandButton value="Cancelar"

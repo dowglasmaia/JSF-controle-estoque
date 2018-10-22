@@ -15,7 +15,7 @@ import com.maia.ce.interfaces.GenericRepositoryDAO;
  * 
  * */
 
-@Transactional(rollbackOn = { Exception.class })
+@Transactional(rollbackOn = {Exception.class})
 public class GenericDAO<E> implements GenericRepositoryDAO<E> {
 	private static final long serialVersionUID = 1L;
 

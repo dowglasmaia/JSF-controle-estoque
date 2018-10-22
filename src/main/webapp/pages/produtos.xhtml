@@ -11,12 +11,13 @@
 	<ui:define name="titulo">Entrada de Produtos</ui:define>
 	<!-- Chamando o Metodo Inicializar, Antes da Pagina ser carregada  -->
 	<f:metadata>
-		<f:viewParam name="Linha Apenas para resolvendo o excesso de inicializção, porque Não sei explicar rsrs"/>
-	
-		<f:event listener="#{produtoView.listarFornecedores()}"
+		<f:viewParam
+			name="Linha Apenas para resolvendo o excesso de inicializção, porque Não sei explicar rsrs" />
+
+		<f:event listener="#{produtoService.listarFornecedores()}"
 			type="preRenderView">
-			
-			</f:event>
+
+		</f:event>
 	</f:metadata>
 
 
@@ -33,47 +34,46 @@
 							columnClasses="ui-grid-col-2, ui-grid-col-13" layout="grid"
 							styleClass="ui-paneilgrid-blak">
 
-							<p:outputLabel for="codigo" value="Código" />
-							<p:inputText id="codigo" size="10" readonly="true"
-								placeholder="Código" value="#{produtoView.produto.id}" />
+							<h:outputText />
+							<h:inputHidden value="#{produtoService.produto.id}" />
+
+							<p:outputLabel for="sku" value="SKU" />
+							<p:inputText id="sku" size="10" placeholder="SKU" maxlength="5"
+								value="#{produtoService.produto.SKU}" />
 
 							<p:outputLabel for="desc" value="Descrição" />
 							<p:inputText id="desc" size="50" placeholder="Descrição"
-								value="#{produtoView.produto.descricao}" />
+								value="#{produtoService.produto.descricao}" />
 
 							<p:outputLabel for="marca" value="Marca" />
 							<p:inputText id="marca" size="50" placeholder="Marca"
-								value="#{produtoView.produto.marca}" />
+								value="#{produtoService.produto.marca}" />
 
 							<p:outputLabel for="fornc" value="Fornecedor" />
 							<p:selectOneMenu id="fornc" filter="true"
-								value="#{produtoView.produto.fornecedor}"
+								value="#{produtoService.produto.fornecedor}"
 								converter="omnifaces.SelectItemsConverter">
-
 								<f:selectItem itemLabel="Selecione um Fornecedor"
 									noSelectionOption="true" />
 
-								<f:selectItems id="itForn" value="#{produtoView.fornecedores}" var="forn"
-									itemLabel="#{forn.nome}" itemValue="#{forn}" />
-
-
-
+								<f:selectItems id="itForn" value="#{produtoService.fornecedores}"
+									var="forn" itemLabel="#{forn.nome}" itemValue="#{forn}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel for="qtda" value="Quantidade" />
 							<p:inputText id="qtda" size="10" placeholder="Quantidade"
-								value="#{produtoView.produto.quantidade}" />
+								value="#{produtoService.quantidade}" />
 
 							<p:outputLabel for="vlrCusto" value="Valor de Custo" />
 							<p:inputText id="vlrCusto" size="20" placeholder="0.00"
 								maxlength="20" styleClass="moeda"
-								value="#{produtoView.produto.valorCusto}">
+								value="#{produtoService.produto.valorCusto}">
 								<f:convertNumber maxFractionDigits="2" />
 							</p:inputText>
 
 							<p:outputLabel for="estoque" value="Estoque Atual" />
 							<h:outputText id="estoque"
-								value="#{produtoView.produto.estoqueAtual}" />
+								value="#{produtoService.produto.estoqueAtual}" />
 
 
 						</p:panelGrid>
@@ -83,12 +83,15 @@
 				<!-- Butões -->
 				<div align="right" style="margin-top: 5px">
 					<p:commandButton value="Novo" icon="ui-icon-plus"
-						actionListener="#{produtoView.novo}" update="frmProdutos:gridProdutos" />
+						actionListener="#{produtoService.novo}"
+						update="frmProdutos:gridProdutos" />
 
 					<p:commandButton value="Salvar" icon="ui-icon-disk"
-						actionListener="#{produtoView.save}" update="@form msg" />
+						actionListener="#{produtoService.saveOrUpdate}"
+						update="frmProdutos:gridProdutos frmProdutos:msg" />
 
-					<p:commandButton value="Cancelar" icon="ui-icon-trash" update="frmProdutos:gridProdutos"/>
+					<p:commandButton value="Cancelar" icon="ui-icon-trash"
+						update="frmProdutos:gridProdutos" />
 				</div>
 			</h:panelGroup>
 

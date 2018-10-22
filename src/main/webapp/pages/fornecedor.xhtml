@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	template="/WEB-INF/template/template.xhtml">
+<!-- 
+ * Autor: Dowglas Maia
+ * Skype: live:dowglasmaia
+ * E-mail:dowglasmaia@live.com
+ * 
+ * -->
+	<ui:define name="titulo">Fornecedor</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="frmFornecedor">
+			<div class="ui-fluid">
+				<p:messages id="msg" autoUpdate="true" />
+
+				<p:fieldset legend="Cadastro de Fornecedores">
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-2, ui-grid-col-13" layout="grid"
+						styleClass="ui-paneilgrid-blak">
+						<h:outputText />
+						<h:inputHidden value="#{fornecedorService.fornecedor.id}" />
+
+						<p:outputLabel for="nome" value="Nome" />
+						<p:inputText id="nome" size="50"
+							value="#{fornecedorService.fornecedor.nome}" />
+
+						<p:outputLabel for="tel" value="Telefone" />
+						<p:inputText id="tel" size="20"
+							value="#{fornecedorService.fornecedor.tefelefone}" />
+
+						<p:outputLabel for="email" value="email" />
+						<p:inputText size="50"
+							value="#{fornecedorService.fornecedor.email}" />
+
+						<p:outputLabel value="Representante" />
+						<p:inputText size="50" id="email"
+							value="#{fornecedorService.fornecedor.representatne}" />
+
+					</p:panelGrid>
+
+
+
+				</p:fieldset>
+				<!-- Butões -->
+				<div align="right" style="margin-top: 5px">
+					<p:commandButton value="Novo" icon="ui-icon-plus" />
+
+					<p:commandButton value="Salvar" icon="ui-icon-disk"
+						actionListener="#{fornecedorService.saveOrUpdate}" />
+
+					<p:commandButton value="Cancelar" icon="ui-icon-trash" />
+				</div>
+
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

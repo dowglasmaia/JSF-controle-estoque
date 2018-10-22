@@ -8,9 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 
 /*
  * Autor: Dowglas Maia
@@ -26,26 +24,26 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(length = 50)
+	@Column(length = 10)	
+	private String SKU;
+
+	@Column(length = 50)	
 	private String descricao;
 
-	@Column(length = 50)
+	@Column(length = 50)	
 	private String marca;
 
 	@ManyToOne
 	private Fornecedor fornecedor;
 
-	@Column(length = 20, nullable = false)
-	private Integer quantidade;
-
 	@Column(precision = 12, scale = 2)
 	private Double valorCusto;
 
 	@Column(length = 20)
-	private Integer estoqueAtual = 0;
+	private Integer estoqueAtual;
 
 	public Produto() {
-
+ 
 	}
 
 	// ***Getters e Setters***//
@@ -81,14 +79,6 @@ public class Produto implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	public Double getValorCusto() {
 		return valorCusto;
 	}
@@ -104,6 +94,14 @@ public class Produto implements Serializable {
 
 	public void setEstoqueAtual(Integer estoqueAtual) {
 		this.estoqueAtual = estoqueAtual;
+	}
+
+	public String getSKU() {
+		return SKU;
+	}
+
+	public void setSKU(String sKU) {
+		SKU = sKU;
 	}
 
 	@Override
