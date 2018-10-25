@@ -12,7 +12,7 @@
 		<finalName>controledeestoque</finalName>
 	</build>
 
-	<!-- JavaEE_8  - <failOnMissingWebXml>false</failOnMissingWebXml> -->
+	<!-- JavaEE_8 - <failOnMissingWebXml>false</failOnMissingWebXml> -->
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -69,7 +69,9 @@
 			<version>1.14.1</version>
 		</dependency>
 
+		
 
+		
 
 
 	</dependencies>

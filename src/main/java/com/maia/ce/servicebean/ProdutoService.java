@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.inject.Model;
 import javax.faces.view.ViewScoped;
@@ -13,6 +14,7 @@ import org.omnifaces.util.Messages;
 
 import com.maia.ce.entity.Fornecedor;
 import com.maia.ce.entity.Produto;
+import com.maia.ce.repositorydao.FornecedorDAO;
 import com.maia.ce.repositorydao.ProdutoDAO;
 
 /*
@@ -30,16 +32,17 @@ public class ProdutoService implements Serializable {
 	@EJB
 	private ProdutoDAO pDao;
 
-	@Inject
-	private Produto produto;
+	@EJB
+	private FornecedorDAO fDao;
 
 	@Inject
-	private FornecedorService fornService;
+	private Produto produto;
 
 	private Integer qtdaSaida;
 	private Integer quantidade;
 
 	private List<Fornecedor> fornecedores = new ArrayList<>();
+	private List<Produto> produtos = new ArrayList<>();
 
 	// Novo
 	public void novo() {
@@ -49,16 +52,14 @@ public class ProdutoService implements Serializable {
 	// Salvar
 	public void saveOrUpdate() {
 		try {
-			if (this.produto.getId() != null) {
+			if (this.produto.getId() != null && produto.getId() != 0) {
 				produto.setEstoqueAtual(quantidade + produto.getEstoqueAtual());
 				pDao.update(produto);
-
 				Messages.addGlobalInfo("Produto Atualizado com Sucesso!");
 			} else {
 				produto.setEstoqueAtual(quantidade);
 				pDao.save(produto);
 				Messages.addGlobalInfo("Produto Salvo com Sucesso!");
-
 			}
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Tentar Salvar ou Atualizar o Produto!");
@@ -69,7 +70,7 @@ public class ProdutoService implements Serializable {
 	// Listar Todos
 	public List<Produto> ListarTodos() {
 		try {
-			return pDao.findAll();
+			return produtos = pDao.findAll();
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Realizar Consulta de Produtos!");
 			e.printStackTrace();
@@ -89,18 +90,29 @@ public class ProdutoService implements Serializable {
 	}
 
 	// Listar Fornecedores
-	public List<Fornecedor> listarFornecedores() {
-		return this.fornecedores = fornService.listarFornecedores();
+
+	@PostConstruct
+	public void listarFornecedores() {
+		try {
+			this.fornecedores = fDao.findAll();
+		} catch (Exception e) {
+			Messages.addGlobalError("Erro de Sistema!" + Fornecedor.class);
+			e.printStackTrace();
+		}
 
 	}
 
 	// Atualiza Estoque
-	public void baixarEstoque(Integer qtda) {
-		if (produto.getEstoqueAtual() != 0 && qtda <= produto.getEstoqueAtual()) {
-			produto.setEstoqueAtual(produto.getEstoqueAtual() - qtda);
-			saveOrUpdate();
-		} else {
-			Messages.addGlobalWarn("Erro ao Tentar Atualizar Estoque!");
+	public void baixarEstoque() {
+		if (produto.getEstoqueAtual() != 0 && qtdaSaida <= produto.getEstoqueAtual()) {
+			produto.setEstoqueAtual(produto.getEstoqueAtual() - qtdaSaida);
+			try {
+				pDao.update(produto);
+				Messages.addGlobalInfo("Estoque Atualizado com Sucesso!");
+			} catch (Exception e) {
+				Messages.addGlobalWarn("Erro ao Tentar Atualizar Estoque!");
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -135,6 +147,10 @@ public class ProdutoService implements Serializable {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
 
 }

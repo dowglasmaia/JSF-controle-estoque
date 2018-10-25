@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.inject.Model;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-
 
 import org.omnifaces.util.Messages;
 
@@ -22,6 +22,7 @@ import com.maia.ce.repositorydao.FornecedorDAO;
  * */
 
 @Model
+@ViewScoped
 public class FornecedorService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -50,14 +51,13 @@ public class FornecedorService implements Serializable {
 	}
 
 	// listar
-	public List<Fornecedor> listarFornecedores() {
+	public void listarFornecedores() {
 		try {
-			return fornecedores = fDao.findAll();
+			fornecedores = fDao.findAll();
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Realizar Consulta de Fornecedores!");
 			e.printStackTrace();
-		}
-		return null;
+		}	
 	}
 
 	// Getters e Setters

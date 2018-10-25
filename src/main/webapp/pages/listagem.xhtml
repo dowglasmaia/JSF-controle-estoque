@@ -14,30 +14,26 @@
 	<f:metadata>
 		<f:viewParam
 			name="Linha Apenas para resolvendo o excesso de inicializção, porque Não sei explicar rsrs"></f:viewParam>
-		<f:event listener="#{produtoView.listarTodos()}"
+		<f:event listener="#{produtoService.ListarTodos()}"
 			type="preRenderView"></f:event>
 	</f:metadata>
 
 	<!-- Inicio do Conteudo -->
 	<ui:define name="conteudo">
-
-
 		<h:form id="frmSd_Produtos">
 			<h:panelGroup>
 				<!-- Deixando o Formulario Responsivel -->
 				<div class="ui-fluid">
-					<b:messages id="msg" />
+					<p:messages id="msg" autoUpdate="true"/>
 
 					<p:fieldset legend="Produtos">
-						<p:dataTable value="#{produtoView.produtos}" var="p"
-							filteredValue="#{produtoView.produtos}"
-							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							lazy="true" paginatorPosition="top" paginator="true" rows="10"
+						<p:dataTable id="tblProd" value="#{produtoService.produtos}" var="p"
+							paginatorPosition="top" paginator="true" rows="10"
 							emptyMessage="Nenhum Registro Encontrado!">
 
-							<p:column headerText="Código" sortBy="#{p.id}"
+							<p:column headerText="SKU" sortBy="#{p.SKU}" filterBy="#{p.SKU}"
 								style="width: 80px">
-								<h:outputText value="#{p.id}" />
+								<h:outputText value="#{p.SKU}" />
 							</p:column>
 
 							<p:column headerText="Descrição" style="width: 150px">
@@ -49,7 +45,7 @@
 							</p:column>
 
 							<p:column headerText="Fornecedor" style="width: 100px">
-								<h:outputText value="#{p.fornecedor}" />
+								<h:outputText value="#{p.fornecedor.nome}" />
 							</p:column>
 
 							<p:column headerText="Valor de Custo" style="width: 80px">
@@ -64,62 +60,50 @@
 								<p:commandButton icon="ui-icon-refresh"
 									update=":frmSd_Produtos:pnlProduto :frmSd_Produtos:msg"
 									oncomplete="PF('proDialog').show()" title="Atualizar">
-									<f:setPropertyActionListener value="#{p}"
-										target="#{produtoView.produto}"></f:setPropertyActionListener>
-									<!-- <f:attribute name="objSelecionado" value="#{p}"></f:attribute> -->
+									<f:setPropertyActionListener value="#{p}" target="#{produtoService.produto}"/>									
 								</p:commandButton>
 							</p:column>
-
 						</p:dataTable>
 					</p:fieldset>
 
 					<!-- Dialog de Atualização dos Dados -->
 					<p:dialog header="Saída de Produtos" widgetVar="proDialog"
-						modal="true" closable="false" resizable="false">
+						modal="true" closable="true" resizable="false">
 
 						<p:outputPanel id="pnlProduto" style=" width:400px">
 							<p:panelGrid columns="2"
 								columnClasses="ui-grid-col-3, ui-grid-col-13" layout="grid"
 								styleClass="ui-paneilgrid-blak">
 
-								<p:outputLabel value="Código:" />
-								<h:outputText value="#{produtoView.produto.id}" />
+								<p:outputLabel value="SKU:" />
+								<h:outputText value="#{produtoService.produto.SKU}" />
 
 								<p:outputLabel value="Descrição:" />
-								<h:outputText value="#{produtoView.produto.descricao}"
+								<h:outputText value="#{produtoService.produto.descricao}"
 									style="width: 70px" />
 
 								<p:outputLabel value="Estoque Atual: " />
-								<h:outputText value="#{produtoView.produto.estoqueAtual}" />
-
+								<h:outputText value="#{produtoService.produto.estoqueAtual}" />
 
 								<p:outputLabel for="saida" value="Qtda Saída: " />
-								<p:inputText id="saida" value="#{produtoView.qtda}"
+								<p:inputText id="saida" value="#{produtoService.qtdaSaida}"
 									placeholder="Saída" size="10">
 									<f:convertNumber minIntegerDigits="1" type="number" />
 								</p:inputText>
 
 								<f:facet name="footer">
 									<p:commandButton value="Finalizar Saída"
-										actionListener="#{produtoView.saida}"
-										oncomplete="PF('proDialog').hide()" update="@form" />
+										actionListener="#{produtoService.baixarEstoque}"
+										oncomplete="PF('proDialog').hide()" update=":frmSd_Produtos:tblProd" />
 
 									<p:commandButton value="Cancelar"
 										oncomplete="PF('proDialog').hide()" />
-
 								</f:facet>
 							</p:panelGrid>
 						</p:outputPanel>
-
 					</p:dialog>
-
 				</div>
 			</h:panelGroup>
 		</h:form>
-
-
-
-
 	</ui:define>
-
 </ui:composition>
